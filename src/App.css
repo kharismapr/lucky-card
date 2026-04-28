@@ -1,0 +1,507 @@
+/* ============================================================
+   App Shell
+============================================================ */
+.app {
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(ellipse at 50% 40%, #fffef8 0%, #fdf5e4 55%, #f7e8c8 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ============================================================
+   Custom Cursor
+============================================================ */
+.cursor {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+}
+
+.cursor__dot {
+  width: 12px;
+  height: 12px;
+  background: radial-gradient(circle, #fff 10%, var(--spark-yellow) 60%);
+  border-radius: 50%;
+  box-shadow: 0 0 8px 2px rgba(255, 215, 0, 0.6);
+}
+
+.cursor--hover .cursor__dot {
+  transform: scale(1.8);
+  transition: transform 0.2s ease;
+}
+
+/* ============================================================
+   Spark Particles
+============================================================ */
+.spark {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  border-radius: 50%;
+  animation: sparkOut var(--d, 0.6s) ease-out forwards;
+}
+
+@keyframes sparkOut {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(var(--x), var(--y)) scale(0);
+  }
+}
+
+/* ============================================================
+   Celebration Confetti
+============================================================ */
+.confetti {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9997;
+  animation: confettiDrop var(--d, 2s) ease-out forwards;
+}
+
+@keyframes confettiDrop {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0deg);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(var(--x), var(--y)) rotate(var(--r));
+  }
+}
+
+/* ============================================================
+   Back Button
+============================================================ */
+.btn-back {
+  position: fixed;
+  top: 28px;
+  left: 32px;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Caveat', cursive;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-mid);
+  background: rgba(255, 255, 255, 0.8);
+  border: 1.5px solid #e8d9c0;
+  border-radius: 50px;
+  padding: 8px 20px 8px 14px;
+  cursor: none;
+  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  backdrop-filter: blur(4px);
+}
+
+.btn-back:hover {
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transform: translateX(-2px);
+}
+
+.btn-back__arrow {
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+/* ============================================================
+   SCENE: Mailbox
+============================================================ */
+.mailbox-scene {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0px;
+  opacity: 0;
+  animation: fadeUp 0.7s ease-out 0.1s forwards;
+}
+
+.mailbox-text {
+  font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+  font-weight: 700;
+  color: var(--text-dark);
+  text-align: center;
+  line-height: 1.35;
+  padding: 0 24px;
+  margin-bottom: 12px;
+}
+
+.mailbox-wrap {
+  position: relative;
+  cursor: none;
+  display: inline-flex;
+  transition: transform 0.3s ease;
+}
+
+.mailbox-wrap:hover {
+  transform: scale(1.06) rotate(-2deg);
+}
+
+.mailbox-wrap:active {
+  transform: scale(0.96);
+}
+
+.mailbox-img {
+  width: clamp(170px, 28vw, 260px);
+  height: auto;
+  filter: drop-shadow(0 8px 24px rgba(180, 120, 60, 0.18));
+  transition: filter 0.3s ease;
+}
+
+.mailbox-wrap:hover .mailbox-img {
+  filter: drop-shadow(0 10px 28px rgba(245, 200, 66, 0.4));
+}
+
+/* idle bounce every 4s */
+.mailbox-wrap.wobble {
+  animation: mailboxWobble 0.55s ease-in-out;
+}
+
+@keyframes mailboxWobble {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  25% {
+    transform: rotate(-6deg);
+  }
+  55% {
+    transform: rotate(5deg);
+  }
+  80% {
+    transform: rotate(-3deg);
+  }
+}
+
+.hint-text {
+  font-size: clamp(0.85rem, 1.8vw, 1rem);
+  color: var(--text-hint);
+  margin-top: 14px;
+  animation: hintFloat 2.2s ease-in-out 1.4s infinite;
+}
+
+@keyframes hintFloat {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-4px);
+  }
+}
+
+/* ============================================================
+   SCENE: Envelope
+============================================================ */
+.envelope-scene {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  margin-top: 150px;
+  opacity: 0;
+  animation: fadeUp 0.65s ease-out 0s forwards;
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease;
+}
+
+.envelope-scene.slide-out {
+  transform: translateX(120vw);
+  opacity: 0;
+}
+
+.envelope-text {
+  position: absolute;
+  bottom: calc(100% + 14px);
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: clamp(1.2rem, 2.8vw, 1.9rem);
+  font-weight: 700;
+  color: var(--text-dark);
+  text-align: center;
+  line-height: 1.4;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ---- The actual envelope ---- 
+  Structure:
+    .env                (overall size, perspective host)
+      .env__back       (envelope body - beige rect)
+      .env__folds SVG  (diagonal crease lines)
+      .env__inner      (inner card area)
+      .env__flap-wrap  (perspective wrapper, transform-origin top)
+      .env__flap      (top triangle, rotates open on X axis)
+      .env__seal       (heart seal badge)
+      .card-rise-wrap  (card that rises from envelope)
+*/
+
+.env-wrap {
+  perspective: 900px;
+  cursor: none;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.env-wrap:hover {
+  transform: translateY(-5px);
+}
+
+.env {
+  position: relative;
+  width: clamp(300px, 48vw, 460px);
+  height: clamp(190px, 30vw, 290px);
+  filter: drop-shadow(0 12px 32px rgba(180, 140, 60, 0.22)) drop-shadow(0 2px 6px rgba(0, 0, 0, 0.08));
+}
+
+.env__back {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, #f7e9bc 0%, #f0d98a 50%, #e8c976 100%);
+  border-radius: 6px;
+}
+
+.env__left, .env__right, .env__bottom {
+  display: none;
+}
+
+.env__flap-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 54%;
+  transform-origin: top center;
+  transform-style: preserve-3d;
+  transition: transform 0.75s cubic-bezier(0.645, 0.045, 0.355, 1.000);
+  z-index: 10;
+}
+
+.env__flap-wrap.open {
+  transform: rotateX(-180deg);
+}
+
+.env__flap {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+/* Front face of flap (visible when closed) */
+.env__flap::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  background: linear-gradient(175deg, #f5e088 0%, #d4a840 100%);
+  backface-visibility: hidden;
+}
+
+/* Seal */
+.env__seal {
+  position: absolute;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #f07070 0%, var(--seal-red) 55%, var(--seal-red2) 100%);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.22), inset 0 -2px 4px rgba(0, 0, 0, 0.15);
+  /* sits at the V-point of the flap — 54% height - 19px half seal */
+  top: calc(54% - 19px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 11;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.35s ease;
+}
+
+.env__seal::after {
+  content: '♥';
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.env__seal.burst {
+  opacity: 0;
+  transform: translateX(-50%) scale(2.2) rotate(40deg);
+}
+
+.env__inner {
+  position: absolute;
+  bottom: 12%;
+  left: 8%;
+  right: 8%;
+  height: 55%;
+  background: var(--env-inner);
+  border-radius: 3px;
+  z-index: 3;
+  overflow: hidden;
+}
+
+/* Card Rising from envelope*/
+.card-rise-wrap {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(-10%);
+  width: 84%;
+  /* start BEHIND inner env (z-index 3) and fully clipped */
+  z-index: 2;
+  clip-path: inset(100% 0 0 0);
+  /* transition for peek animation (delay so flap opens first) */
+  transition:
+    clip-path 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.5s,
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.5s;
+  cursor: none;
+}
+
+/* Card peeking */
+.card-rise-wrap.peeking {
+  clip-path: inset(0%);
+  z-index: 2;
+  transform: translateX(-50%) translateY(-32%);
+}
+
+/* Card risen */
+.card-rise-wrap.risen {
+  clip-path: inset(0%);
+  z-index: 12;
+  transform: translateX(-50%) translateY(-72%);
+  transition:
+    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0s,
+    clip-path 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0s;
+}
+
+/* ============================================================
+   SCENE: Card Zoomed 
+============================================================ */
+.card-zoom-scene {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  background: radial-gradient(ellipse at center, rgba(255, 250, 220, 0.96) 0%, rgba(253, 245, 228, 0.99) 100%);
+  opacity: 0;
+  animation: fadeIn 0.55s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card-zoom-img-wrap {
+  position: relative;
+  animation: fadeIn 0.5s ease-out 0.05s both;
+}
+
+.card-zoom-img {
+  width: clamp(280px, 50vw, 520px);
+  height: auto;
+  border-radius: 10px;
+  filter: drop-shadow(0 16px 48px rgba(180, 150, 50, 0.3));
+  animation: cardFloat 6s ease-in-out 1s infinite;
+}
+
+@keyframes cardFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-0.5deg) scale(1);
+  }
+  50% {
+    transform: translateY(-10px) rotate(0.5deg) scale(1.6);
+  }
+}
+
+/* Rainbow glow behind card */
+.card-zoom-glow {
+  position: absolute;
+  inset: -30px;
+  border-radius: 20px;
+  background: conic-gradient(from 0deg,
+      rgba(255, 215, 0, 0.5),
+      rgba(255, 159, 67, 0.4),
+      rgba(255, 100, 130, 0.3),
+      rgba(100, 200, 255, 0.3),
+      rgba(150, 255, 160, 0.3),
+      rgba(255, 215, 0, 0.5));
+  filter: blur(22px);
+  animation: glowSpin 4s linear infinite;
+  z-index: -1;
+}
+
+@keyframes glowSpin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Lucky card image in normal envelope scene */
+.lucky-card-img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  display: block;
+  cursor: none;
+  transition: transform 0.2s ease;
+}
+
+.card-rise-wrap.risen:hover .lucky-card-img {
+  transform: scale(1.03);
+}
+
+/* ============================================================
+   Responsive
+============================================================ */
+@media (max-width: 580px) {
+  .env {
+    width: clamp(260px, 84vw, 360px);
+    height: clamp(165px, 52vw, 225px);
+  }
+
+  .card-zoom-img {
+    width: clamp(240px, 78vw, 360px);
+  }
+}

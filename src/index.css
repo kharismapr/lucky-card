@@ -1,0 +1,31 @@
+/* ===== Reset ===== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg:           #ffffff;
+  --bg-soft:      #fdf8f0;
+  --text-dark:    #3a2a1a;
+  --text-mid:     #7a6050;
+  --text-hint:    #b0a090;
+  --accent-gold:  #f5c842;
+  --spark-yellow: #ffd700;
+  --env-main:     #f2dba0;
+  --env-flap:     #e8c876;
+  --env-shadow:   #c9a84c;
+  --env-inner:    #faecc8;
+  --seal-red:     #e05050;
+  --seal-red2:    #c03030;
+}
+
+html, body {
+  width: 100%; height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+body {
+  font-family: 'Caveat', cursive, sans-serif;
+  cursor: none;
+}
+
+#root { width: 100%; height: 100%; }
